@@ -23,8 +23,8 @@ app.put("/person/:id", (req, res) => {
   const updatedname = req.body as Person;
   const { id } = req.params;
 
-  const updatednameslist = person.filter((persons) => {
-    return persons.id === id;
+  const updatednameslist = person.filter((elm) => {
+    return elm.id === id;
   });
 
   updatednameslist.push(updatedname);
@@ -32,34 +32,34 @@ app.put("/person/:id", (req, res) => {
   person = updatednameslist;
 
   return res.json({
-    message: "names updated !",
+    msg: "names updated !",
   });
 });
 
 app.delete("/person/:id", (req, res) => {
   const { id } = req.params;
-  const delname = person.filter((person) => {
-    person.id !== id;
+  const delname = person.filter((elm) => {
+    elm.id !== id;
   });
   person = delname;
   return res.json({
-    message: "name deleted ",
+    msg: "name has been deleted ",
   });
 });
 
 //--------------------------------------------------------
 
-let grade1: Grade[] = [];
+let grade: Grade[] = [];
 
 app.get("/grade", (req, res, next) => {
-  return res.json(grade1);
+  return res.json(grade);
 });
 
 app.post("/grade", (req, res) => {
   const newgrade = req.body as Grade;
-  grade1.push(newgrade);
+  grade.push(newgrade);
   return res.json({
-    grade: "grade added",
+    grade: "grade has been added",
   });
 });
 
@@ -67,27 +67,27 @@ app.put("/grade/:id", (req, res) => {
   const updategrade = req.body as Grade;
   const { id } = req.params;
 
-  const updategradelist = grade1.filter((grades) => {
-    return grades.id === id;
+  const updategradelist = grade.filter((elm) => {
+    return elm.id === id;
   });
 
   updategradelist.push(updategrade);
 
-  grade1 = updategradelist;
+  grade = updategradelist;
 
   return res.json({
-    message: "grades updated !",
+    msg: "grades updated !",
   });
 });
 
 app.delete("/grade/:id", (req, res) => {
   const { id } = req.params;
-  const delgrade = grade1.filter((grades) => {
-    grades.id !== id;
+  const delgrade = grade.filter((elm) => {
+    elm.id !== id;
   });
-  grade1 = delgrade;
+  grade = delgrade;
   return res.json({
-    message: "grade deleted ",
+    msg: "grade has been deleted ",
   });
 });
 
@@ -106,7 +106,7 @@ app.post("/tracker", (req, res) => {
 
   track.push(newTrack);
   return res.json({
-    message: "track added !",
+    msg: "track has been added !",
   });
 });
 
@@ -114,8 +114,8 @@ app.put("/tracker/:id", (req, res) => {
   const updatedTracker = req.body as Tracker;
   const { id } = req.params;
 
-  const updatedtrackerlist = track.filter((tracks) => {
-    return tracks.id !== id;
+  const updatedtrackerlist = track.filter((elm) => {
+    return elm.id !== id;
   });
 
   updatedtrackerlist.push(updatedTracker);
@@ -123,29 +123,29 @@ app.put("/tracker/:id", (req, res) => {
   track = updatedtrackerlist;
 
   return res.json({
-    message: "tracks updated !",
+    msg: "tracks updated !",
   });
 });
 
 app.delete("/tracker/:id", (req, res) => {
   const { id } = req.params;
 
-  const newTreacks = track.filter((tracks) => {
-    return tracks.id !== id;
+  const newTreacks = track.filter((elm) => {
+    return elm.id !== id;
   });
 
   track = newTreacks;
 
   return res.json({
-    message: "tracks deleted !",
+    msg: "tracks deleted !",
   });
 });
 
 app.get("/tracker/:title", (req, res) => {
   let key = req.params.title;
   let title = key.replace("-", " ");
-  let searchVal = track.filter((tracksa) => {
-    return tracksa.title.toLowerCase() === title;
+  let searchVal = track.filter((elm) => {
+    return elm.title.toLowerCase() || elm.title.toUpperCase() === title;
   });
   return res.json(searchVal);
 });
